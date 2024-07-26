@@ -16,15 +16,31 @@ on:
       passed_true:
         type: boolean
         required: true
+      default_true:
+        type: boolean
+        required: true
+        default: true
       passed_false:
         type: boolean
         required: true
+      default_false:
+        type: boolean
+        required: true
+        default: false
       undefined:
         type: boolean
 
 jobs:
   if-true:
     if: ${{ inputs.passed_true }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print
+        run: echo "Hello World"
+
+  if-default-true:
+    if: ${{ inputs.default_true }}
     runs-on: ubuntu-latest
 
     steps:
@@ -39,6 +55,14 @@ jobs:
       - name: Print
         run: echo "Hello World"
 
+  if-not-default-true:
+    if: ${{ !inputs.default_true }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print
+        run: echo "Hello World"
+
   if-false:
     if: ${{ inputs.passed_false }}
     runs-on: ubuntu-latest
@@ -47,8 +71,24 @@ jobs:
       - name: Print
         run: echo "Hello World"
 
+  if-default-false:
+    if: ${{ inputs.default_false }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print
+        run: echo "Hello World"
+
   if-not-false:
     if: ${{ !inputs.passed_false }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print
+        run: echo "Hello World"
+  
+  if-not-default-false:
+    if: ${{ !inputs.default_false }}
     runs-on: ubuntu-latest
 
     steps:
